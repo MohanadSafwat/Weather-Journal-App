@@ -11,6 +11,9 @@ const https = require("https");
 // Start up an instance of app
 
 const app = express();
+
+const cors = require('cors');
+app.use(cors());
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
 
