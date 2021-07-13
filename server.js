@@ -2,18 +2,26 @@
 projectData = {};
 
 // Require Express to run server and routes
-
+const express = require("express");
 // Start up an instance of app
 
+const app = express();
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
-// Cors for cross origin allowance
+// // Cors for cross origin allowance
 
-// Initialize the main project folder
-app.use(express.static('website'));
+// // Initialize the main project folder
+// app.use(express.static('website'));
 
 
 // Setup Server
+app.get('/',function(req,res){
+    res.send("RUNNN");
+})
+
+app.listen(3000,function(){
+    console.log("hello from 3000");
+});
