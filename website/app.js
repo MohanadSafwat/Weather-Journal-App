@@ -1,55 +1,54 @@
-/* Global Variables */
-
-// Create a new date instance dynamically with JS
-let d;
-let newDate;
-let contentt;
+//make global vars 
+let date;
+let specifiedDate;
+let content;
 let zipCode;
 
+// my own api key and url of weather api
 const apiKey = "&appid=b7a8613f93b501b86c8c94ffd092db3e";
 var url = "https://api.openweathermap.org/data/2.5/weather?zip=";
 
-const postData = async (url = "", data = {}) => {
+// postDataToServer function that send the data to the server to store it 
+const postDataToServer = async (url = "", data = {}) => {
   const response = await fetch(url, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    method: "POST", 
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+    body: JSON.stringify(data), 
   });
 
   try {
-    const newData = await response.json();
-    return newData;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log("error", error);
-    // appropriately handle the error
   }
 };
 
-document.getElementById("generate").addEventListener("click", performAction);
+// event listner
+document.getElementById("generate").addEventListener("click", action);
 
-function performAction(e) {
+function action(e) {
 
     zipCode =  document.getElementById("zip").value;
-    contentt =  document.getElementById("feelings").value;
-    d = new Date();
-    newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
-    console.log(zipCode+"::"+contentt+"::"+d+"::"+newDate);
+    content =  document.getElementById("feelings").value;
+    date = new Date();
+    specifiedDate = date.getMonth() + "." + date.getDate() + "." + date.getFullYear();
       
   getWeather(url, zipCode, apiKey)
     .then(function(data) {
-      console.log(data);
-      postData("/weather", {
+      postDataToServer("/weather", {
         temp: data.main.temp,
-        content: contentt,
-        date: newDate,
+        content: content,
+        date: specifiedDate,
       });
+      updateUI()
+
     })
-    .then(
-        updateUI()
-        );
+
+        
 }
 
 
@@ -59,7 +58,6 @@ const getWeather = async (url, zipCode, key) => {
     
 
   const res = await fetch(url + zipCode + key);
-  console.log(res);
 
   try {
     const data = await res.json();
@@ -73,9 +71,9 @@ const updateUI = async () => {
   const request = await fetch("/all");
   try {
     const data = await request.json();
-    document.getElementById('content').innerHTML = data[0].content;
-    document.getElementById("temp").innerHTML = data[0].temp;
-    document.getElementById("date").innerHTML = data[0].date;
+    document.getElementById('content').innerHTML = "your feeling is:"+data[data.length -1].content;
+    document.getElementById("temp").innerHTML = "temperature is: "+data[data.length -1 ].temp;
+    document.getElementById("date").innerHTML = "date is: "+data[data.length -1].date;
   } catch (error) {
     console.log("error", error);
   }

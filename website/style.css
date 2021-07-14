@@ -30,14 +30,17 @@ body{
 
 #date{
 
+    color: #f23557;
 }
 
 #temp{
 
+    color: #22b2da;
 }
 
 #content{
 
+    color: antiquewhite;
 }
 
 .headline {
