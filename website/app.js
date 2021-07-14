@@ -44,7 +44,7 @@ function action(e) {
         content: content,
         date: specifiedDate,
       });
-      updateUI()
+      dynamicUI()
 
     })
 
@@ -67,7 +67,7 @@ const getWeather = async (url, zipCode, key) => {
   }
 };
 
-const updateUI = async () => {
+const dynamicUI = async () => {
   const request = await fetch("/all");
   try {
     const data = await request.json();
