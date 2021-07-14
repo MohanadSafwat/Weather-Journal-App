@@ -36,34 +36,16 @@ app.get('/',function(req,res){
     
 });
 
-app.post('/',function(req,res){
-    var zipCode = req.body.zip;
-    console.log(zipCode);
-    const apiKey = "b7a8613f93b501b86c8c94ffd092db3e";
-    var url = "https://api.openweathermap.org/data/2.5/weather?zip="+zipCode+"&appid="+apiKey;
-    https.get(url,function(response){
-        response.on("data",function(data)
-        {
-            const weatherData = JSON.parse(data);
-            const description = weatherData.weather[0].description;
-            const temp = weatherData.main.temp;
-            const icon = weatherData.weather[0].icon;
-            const imageUrl = "http://openweathermap.org/img/wn/"+icon+"@2x.png"
-
-
-            res.write("<p> description is "+description+"</p>");
-            res.write("<h1>temp is "+temp+ "</h1>");
-            res.write("<img src=\"" +imageUrl+"\">" );
-            res.send();
-
-
-
-
-        });
-    });
-    
+var data=[];
+app.post('/weather',function(req,res){
+    projectData = {temp:req.body.temp, content: req.body.content, date:req.body.date};
+    data.push(projectData);
 });
 
+app.get('/all',function(req,res){
+     console.log(data);
+    res.send(data);
+})
 
 app.listen(3000,function(){
     console.log("hello from server 3000");
