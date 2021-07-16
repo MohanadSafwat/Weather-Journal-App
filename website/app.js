@@ -5,7 +5,7 @@ let content;
 let zipCode;
 
 // my own api key and url of weather api
-const apiKey = "&appid=b7a8613f93b501b86c8c94ffd092db3e";
+const apiKey = "&appid=b7a8613f93b501b86c8c94ffd092db3e&units=metric";
 var url = "https://api.openweathermap.org/data/2.5/weather?zip=";
 
 // postDataToServer function that send the data to the server to store it 
@@ -35,7 +35,7 @@ function action(e) {
     zipCode =  document.getElementById("zip").value;
     content =  document.getElementById("feelings").value;
     date = new Date();
-    specifiedDate = date.getMonth() + "." + date.getDate() + "." + date.getFullYear();
+    specifiedDate = date.getMonth() +1+ "/" + date.getDate() + "/" + date.getFullYear();
       
   getWeather(url, zipCode, apiKey)
     .then(function(data) {
@@ -71,9 +71,9 @@ const dynamicUI = async () => {
   const request = await fetch("/all");
   try {
     const data = await request.json();
-    document.getElementById('content').innerHTML = "your feeling is:"+data[data.length -1].content;
-    document.getElementById("temp").innerHTML = "temperature is: "+data[data.length -1 ].temp;
-    document.getElementById("date").innerHTML = "date is: "+data[data.length -1].date;
+    document.getElementById('content').innerHTML = "your feeling is: "+data[data.length -1].content;
+    document.getElementById("temp").innerHTML = "temperature is: "+data[data.length -1 ].temp +" Celcius";
+    document.getElementById("date").innerHTML = "date is: "+data[data.length -1].date +" (M/D/Y)"  ;
   } catch (error) {
     console.log("error", error);
   }
