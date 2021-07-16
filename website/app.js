@@ -6,7 +6,7 @@ let zipCode;
 
 // my own api key and url of weather api
 const apiKey = "&appid=b7a8613f93b501b86c8c94ffd092db3e&units=metric";
-var url = "https://api.openweathermap.org/data/2.5/weather?zip=";
+const url = "https://api.openweathermap.org/data/2.5/weather?zip=";
 
 // postDataToServer function that send the data to the server to store it 
 const postDataToServer = async (url = "", data = {}) => {
